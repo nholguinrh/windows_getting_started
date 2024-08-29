@@ -16,6 +16,7 @@
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+        include_management_tools: yes
 
     - name: Create site directory structure
       ansible.windows.win_file:
