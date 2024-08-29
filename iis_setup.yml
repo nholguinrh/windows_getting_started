@@ -1,6 +1,6 @@
 ---
 - 
-  hosts: windows
+  hosts: all
   gather_facts: true
   collections:
    - ansible.windows
