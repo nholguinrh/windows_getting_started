@@ -47,6 +47,7 @@
       ansible.windows.win_copy:
         src: 'C:\ansible\index.html'
         dest: '{{ item.path }}\index.html'
+        remote_src: true
       with_items: "{{ iis_sites }}"
 
   handlers:
