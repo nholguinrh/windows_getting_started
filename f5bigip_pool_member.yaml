@@ -2,13 +2,6 @@
 - name: Reiniciar IIS y gestionar F5 Pool
   hosts: windows_servers
   gather_facts: no
-  vars:
-    pool_name: "nombre_del_pool"
-    f5_host: "direccion_ip_o_fqdn_f5"
-    f5_user: "usuario_f5"
-    f5_pass: "contrasena_f5"
-    f5_validate_certs: no
-    iis_check_url: "http://{{ inventory_hostname }}/"  # URL para verificar IIS
 
   tasks:
     - name: Sacar servidor del pool de F5
