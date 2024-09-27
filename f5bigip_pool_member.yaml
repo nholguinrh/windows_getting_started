@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: 
   vars:
-    nopool_name: "pool_Transaccionales_OCB_QA"
+    pool_name: "pool_Transaccionales_OCB_QA"
     f5_host: "150.150.61.206"
     f5_user: "ansible-ise"
     f5_pass: "Mahfm34.2$3"
