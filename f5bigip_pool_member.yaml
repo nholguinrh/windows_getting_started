@@ -12,7 +12,7 @@
 
   tasks:
     - name: Sacar servidor del pool de F5
-      community.general.f5bigip_pool_member:
+      f5networks.f5_modules.bigip_pool_member:
         server: "{{ f5_host }}"
         user: "{{ f5_user }}"
         password: "{{ f5_pass }}"
