@@ -8,7 +8,7 @@
     f5_user: "ansible-ise"
     f5_pass: "Mahfm34.2$3"
     f5_validate_certs: no
-    inventory_hostname: HNQATRNSOCB1
+    inventory_hostname: "HNQATRNSOCB1"
 
   tasks:
     - name: Sacar servidor del pool de F5
