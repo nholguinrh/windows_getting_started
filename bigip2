@@ -1,0 +1,60 @@
+---
+- name: Reiniciar IIS y gestionar F5 Pool
+  hosts: localhost
+  gather_facts: 
+  vars:
+    pool_name: "pool_Transaccionales_OCB_QA"
+    f5_host: "150.150.61.206"
+    f5_user: "ansible-ise"
+    f5_pass: "Mahfm34.2$3"
+    f5_validate_certs: no
+    inventory_hostname: "HNQATRNSOCB1"
+
+  tasks:
+    - name: Sacar servidor del pool de F5
+      f5networks.f5_modules.bigip_pool_member:
+        provider:
+          server: "{{ f5_host }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_pass }}"
+          validate_certs: "{{ f5_validate_certs }}"
+          transport: "rest"
+        state: forced_offline
+        pool: "{{ pool_name }}"
+        partition: "Common"
+        host:  "{{ inventory_hostname }}"
+      delegate_to: localhost 
+
+    - name: Reiniciar el servicio de IIS en el servidor
+      ansible.windows.win_service:
+        name: w3svc  # Servicio de IIS
+        state: restarted
+
+    - name: Esperar 10 segundos antes de probar el servicio IIS
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Probar que el IIS esté arriba
+      ansible.builtin.uri:
+        url: "{{ iis_check_url }}"
+        method: GET
+        return_content: yes
+        status_code: 200
+      register: iis_check
+
+    - name: Verificar respuesta de IIS
+      ansible.builtin.fail:
+        msg: "IIS no está arriba en {{ inventory_hostname }}"
+      when: iis_check.status != 200
+
+    - name: Ingresar servidor de nuevo al pool de F5
+      f5networks.f5_modules.bigip_pool_member:
+        server: "{{ f5_host }}"
+        user: "{{ f5_user }}"
+        password: "{{ f5_pass }}"
+        validate_certs: "{{ f5_validate_certs }}"
+        state: present
+        pool: "{{ pool_name }}"
+        host: "{{ inventory_hostname }}"
+        port: 80  # Puerto del servicio IIS
+      delegate_to: localhost
