@@ -1,7 +1,13 @@
 ---
 - name: Reiniciar IIS y gestionar F5 Pool
   hosts: localhost
-  gather_facts: no
+  gather_facts: 
+  vars:
+    nopool_name: "pool_Transaccionales_OCB_QA"
+    f5_host: "150.150.61.206"
+    f5_user: "ansible-ise"
+    f5_pass: "Mahfm34.2$3"
+    f5_validate_certs: no
 
   tasks:
     - name: Sacar servidor del pool de F5
