@@ -1,6 +1,6 @@
 ---
 - name: Reiniciar IIS y gestionar F5 Pool
-  hosts: windows_servers
+  hosts: localhost
   gather_facts: no
 
   tasks:
