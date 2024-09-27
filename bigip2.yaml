@@ -8,6 +8,7 @@
     f5_user: "ansible-ise"
     f5_pass: "Mahfm34.2$3"
     f5_validate_certs: no
+    f5_port: 80
     inventory_hostname: "HNQATRNSOCB1"
 
   tasks:
@@ -21,6 +22,7 @@
           transport: "rest"
         state: forced_offline
         pool: "{{ pool_name }}"
+        port: "{{ f5_port }}"
         partition: "Common"
         host:  "{{ inventory_hostname }}"
       delegate_to: localhost 
