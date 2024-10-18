@@ -6,8 +6,3 @@
       ansible.builtin.win_file:
         path: C:\hola.txt
         state: touch
-
-    - name: Escribir "Hola mundo" en el archivo
-      ansible.builtin.win_lineinfile:
-        path: C:\hola.txt
-        line: "Hola mundo"
