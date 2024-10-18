@@ -7,9 +7,6 @@
     # f5_host
     # f5_user
     # f5_pass
-    # f5_validate_certs
-    # f5_hostname: "HNQATRNSOCB1"
-    
   # Use the same connection info for ALL calls to bigip_pool_member
   module_defaults:
     f5networks.f5_modules.bigip_pool_member:
@@ -17,7 +14,7 @@
       user: "{{ f5_user }}"
       password: "{{ f5_pass }}"
       validate_certs: false
-    
+      
   tasks:
     - name: Sacar servidor del pool de F5
       f5networks.f5_modules.bigip_pool_member:
